@@ -1,4 +1,4 @@
-package com.boringxcompany.charts.currency.data
+package com.boringxcompany.charts.currency.data.screen
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
