@@ -32,17 +32,17 @@ fun BottomNavigationBar(
         NavigationItem(
             title = "Home",
             icon = Icons.Default.Home,
-            route = Screen.HomeScreen.rout
+            route = Screen.HomeScreen.route
         ),
         NavigationItem(
             title = "Favourites",
             icon = Icons.Default.Favorite,
-            route = Screen.FavoriteScreen.rout
+            route = Screen.FavoriteScreen.route
         ),
         NavigationItem(
             title = "User",
             icon = Icons.Default.Person,
-            route = Screen.UserScreen.rout
+            route = Screen.UserScreen.route
         )
     )
     NavigationBar(

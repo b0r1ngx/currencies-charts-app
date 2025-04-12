@@ -23,14 +23,14 @@ fun MainScreen() {
     ) { innerPadding ->
 
         val graph =
-            navController.createGraph(startDestination = Screen.HomeScreen.rout) {
-                composable(route = Screen.HomeScreen.rout) {
+            navController.createGraph(startDestination = Screen.HomeScreen.route) {
+                composable(route = Screen.HomeScreen.route) {
                     HomeScreen()
                 }
-                composable(route = Screen.FavoriteScreen.rout) {
+                composable(route = Screen.FavoriteScreen.route) {
                     FavoriteScreen()
                 }
-                composable(route = Screen.UserScreen.rout) {
+                composable(route = Screen.UserScreen.route) {
                     UserScreen()
                 }
             }
