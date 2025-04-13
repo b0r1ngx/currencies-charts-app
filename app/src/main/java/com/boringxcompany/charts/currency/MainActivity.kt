@@ -22,8 +22,8 @@ import com.boringxcompany.charts.currency.ui.theme.CurrenciesChartsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         setContent {
             CurrenciesChartsTheme {
                 val navController = rememberNavController()
