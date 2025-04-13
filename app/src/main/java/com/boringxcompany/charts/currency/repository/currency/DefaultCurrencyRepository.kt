@@ -1,6 +1,6 @@
 package com.boringxcompany.charts.currency.repository.currency
 
-import com.boringxcompany.charts.currency.data.Currency
+import com.boringxcompany.charts.currency.data.domain.Currency
 
 class DefaultCurrencyRepository(
     private val localRepository: CurrencyLocalRepository,
