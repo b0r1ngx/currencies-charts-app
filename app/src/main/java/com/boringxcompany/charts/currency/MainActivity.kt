@@ -8,16 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavGraph
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.createGraph
-import com.boringxcompany.charts.currency.data.screen.Screens
+import com.boringxcompany.charts.currency.ui.navigation.createNavigationGraph
 import com.boringxcompany.charts.currency.ui.screen.BottomNavigationBar
-import com.boringxcompany.charts.currency.ui.screen.HomeScreen
-import com.boringxcompany.charts.currency.ui.screen.ProfileScreen
 import com.boringxcompany.charts.currency.ui.theme.CurrenciesChartsTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,18 +34,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-fun createNavigationGraph(navController: NavHostController): NavGraph {
-    return navController.createGraph(startDestination = Screens.HOME.name) {
-        composable(route = Screens.HOME.name) {
-            HomeScreen()
-        }
-
-        composable(route = Screens.PROFILE.name) {
-            ProfileScreen()
-        }
-
     }
 }
