@@ -1,5 +1,7 @@
 package com.boringxcompany.charts.currency.data.domain
 
 data class Currency(
-    val price: Float
+    val name: String,
+    val price: Float,
+    val history: List<Float>,
 )
