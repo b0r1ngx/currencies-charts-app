@@ -7,11 +7,15 @@ import androidx.navigation.createGraph
 import com.boringxcompany.charts.currency.data.screen.Screens
 import com.boringxcompany.charts.currency.ui.screen.HomeScreen
 import com.boringxcompany.charts.currency.ui.screen.ProfileScreen
+import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
 
-fun createNavigationGraph(navController: NavHostController): NavGraph {
+fun createNavigationGraph(
+    navController: NavHostController,
+    homeViewModel: HomeViewModel,
+): NavGraph {
     return navController.createGraph(startDestination = Screens.HOME.name) {
         composable(route = Screens.HOME.name) {
-            HomeScreen()
+            HomeScreen(homeViewModel)
         }
 
         composable(route = Screens.PROFILE.name) {
