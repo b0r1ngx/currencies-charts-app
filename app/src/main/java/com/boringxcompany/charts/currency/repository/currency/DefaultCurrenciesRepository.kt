@@ -4,7 +4,7 @@ import com.boringxcompany.charts.currency.data.domain.Currency
 
 class DefaultCurrenciesRepository(
     private val localRepository: CurrenciesLocalRepository,
-    private val remoteRepository: CurrenciesLocalRepository
+    private val remoteRepository: CurrenciesRemoteRepository
 ) : CurrenciesRepository {
 
     override suspend fun getCurrencies(): List<Currency> {
