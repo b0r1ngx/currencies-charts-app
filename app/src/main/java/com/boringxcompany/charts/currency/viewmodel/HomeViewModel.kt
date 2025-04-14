@@ -17,14 +17,16 @@ class HomeViewModel(
     val currencies: SharedFlow<List<Currency>> = _currencies.asStateFlow()
 
     init {
-        collectCurrencies()
+//        collectCurrencies()
     }
 
     fun collectCurrencies() {
         viewModelScope.launch {
             try {
                 val currencies = currenciesRepository.getCurrencies()
-//                todo: _currencies.update({ currencies })
+                if (currencies != null) {
+                    _currencies.update { currencies }
+                }
             } catch (e: Exception) {
                 // todo
             }
