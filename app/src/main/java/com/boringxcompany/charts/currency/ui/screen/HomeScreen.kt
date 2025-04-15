@@ -12,7 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.boringxcompany.charts.currency.data.domain.Currency
-import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
+//import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
 import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
 
 @Composable
@@ -48,8 +48,8 @@ private fun CurrencyCard(currency: Currency, modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = currency.name)
-        Text(text = currency.price.price.toString())
-        CurrencyChart()
+//        Text(text = currency.name)
+//        Text(text = currency.price.price.toString())
+//        CurrencyChart()
     }
 }

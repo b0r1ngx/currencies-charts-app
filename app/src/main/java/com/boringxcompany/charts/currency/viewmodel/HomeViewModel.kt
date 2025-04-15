@@ -17,7 +17,7 @@ class HomeViewModel(
     val currencies: SharedFlow<List<Currency>> = _currencies.asStateFlow()
 
     init {
-//        collectCurrencies()
+        collectCurrencies()
     }
 
     fun collectCurrencies() {

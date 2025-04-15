@@ -14,11 +14,13 @@ import androidx.navigation.compose.rememberNavController
 import com.boringxcompany.charts.currency.repository.currency.CurrenciesLocalRepository
 import com.boringxcompany.charts.currency.repository.currency.CurrenciesRemoteRepository
 import com.boringxcompany.charts.currency.repository.currency.DefaultCurrenciesRepository
+import com.boringxcompany.charts.currency.repository.currency.MyHttpClient
 import com.boringxcompany.charts.currency.ui.navigation.createNavigationGraph
 import com.boringxcompany.charts.currency.ui.screen.BottomNavigationBar
 import com.boringxcompany.charts.currency.ui.theme.CurrenciesChartsTheme
 import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
 import com.boringxcompany.charts.currency.viewmodel.HomeViewModelFactory
+import io.ktor.client.HttpClient
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +29,7 @@ class MainActivity : ComponentActivity() {
 
         val currenciesRepository = DefaultCurrenciesRepository(
             CurrenciesLocalRepository(),
-            CurrenciesRemoteRepository()
+            CurrenciesRemoteRepository(MyHttpClient())
         )
 
         val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(currenciesRepository) }
