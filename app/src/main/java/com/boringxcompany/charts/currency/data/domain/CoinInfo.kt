@@ -1,5 +1,8 @@
 package com.boringxcompany.charts.currency.data.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class CoinInfo(
     val Algorithm: String,
     val AssetLaunchDate: String,

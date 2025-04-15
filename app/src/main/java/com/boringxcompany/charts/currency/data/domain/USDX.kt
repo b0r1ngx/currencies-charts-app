@@ -1,5 +1,8 @@
 package com.boringxcompany.charts.currency.data.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class USDX(
     val CHANGE24HOUR: Double,
     val CHANGEDAY: Double,
