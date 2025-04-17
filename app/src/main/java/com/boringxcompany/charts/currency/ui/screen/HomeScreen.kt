@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.boringxcompany.charts.currency.data.domain.Currency
+import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
 //import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
 import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
 
@@ -42,14 +42,19 @@ private fun TopBar(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun CurrencyCard(currency: Currency, modifier: Modifier = Modifier) {
+private fun CurrencyCard(generalCoinInfo: GeneralCoinInfo, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-//        Text(text = currency.name)
-//        Text(text = currency.price.price.toString())
-//        CurrencyChart()
+//        Text(text = generalCoinInfo.image)
+        Text(text = generalCoinInfo.fullName.toString())
+        Text(text = generalCoinInfo.name.toString())
+        Text(text = generalCoinInfo.price.toString())
+        Text(text = generalCoinInfo.dailyPriceChangePercent.toString())
+        Text(text = generalCoinInfo.dailyVolume.toString())
+        Text(text = generalCoinInfo.marketCap.toString())
+
     }
 }

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Data(
     @SerialName("CoinInfo")
-    val coinInfo: CoinInfo,
+    val coinInfo: CoinInfo?,
     @SerialName("DISPLAY")
-    val display: Display
+    val display: Display?
 )

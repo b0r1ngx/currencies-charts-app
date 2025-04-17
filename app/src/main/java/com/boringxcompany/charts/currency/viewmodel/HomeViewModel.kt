@@ -2,7 +2,7 @@ package com.boringxcompany.charts.currency.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.boringxcompany.charts.currency.data.domain.Currency
+import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
 import com.boringxcompany.charts.currency.repository.currency.CurrenciesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val currenciesRepository: CurrenciesRepository,
 ) : ViewModel() {
-    private val _currencies: MutableStateFlow<List<Currency>> = MutableStateFlow(listOf())
-    val currencies: SharedFlow<List<Currency>> = _currencies.asStateFlow()
+    private val _currencies: MutableStateFlow<List<GeneralCoinInfo>> = MutableStateFlow(listOf())
+    val currencies: SharedFlow<List<GeneralCoinInfo>> = _currencies.asStateFlow()
 
     init {
         collectCurrencies()

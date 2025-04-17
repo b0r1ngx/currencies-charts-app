@@ -1,8 +1,8 @@
 package com.boringxcompany.charts.currency.repository.currency
 
-import com.boringxcompany.charts.currency.data.domain.Currency
+import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
 
 interface CurrenciesRepository {
-    suspend fun getCurrencies(): List<Currency>?
-    suspend fun getCurrency(code: String): Currency
+    suspend fun getCurrencies(): List<GeneralCoinInfo>?
+    suspend fun getCurrency(code: String): GeneralCoinInfo
 }

@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Display(
     @SerialName("USD")
-    val usd: Usd,
+    val usd: Usd?,
 )

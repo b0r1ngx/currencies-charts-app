@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CoinDeskResponse(
     @SerialName("Data")
-    val data: List<Data>,
+    val data: List<Data>?,
 )
 
 

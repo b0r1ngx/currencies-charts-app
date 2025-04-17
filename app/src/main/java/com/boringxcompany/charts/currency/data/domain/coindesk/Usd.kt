@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Usd(
     @SerialName("PRICE")
-    val price: String,
+    val price: String?,
     @SerialName("CHANGEPCTDAY")
-    val dailyPriceChangePercent: String,
+    val dailyPriceChangePercent: String?,
     @SerialName("TOTALVOLUME24HTO")
-    val dailyTradeVolume: String,
+    val dailyTradeVolume: String?,
     @SerialName("MKTCAP")
-    val marketCap: String
+    val marketCap: String?
 )

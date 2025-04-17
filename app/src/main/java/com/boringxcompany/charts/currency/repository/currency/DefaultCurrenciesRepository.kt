@@ -1,13 +1,13 @@
 package com.boringxcompany.charts.currency.repository.currency
 
-import com.boringxcompany.charts.currency.data.domain.Currency
+import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
 
 class DefaultCurrenciesRepository(
     private val localRepository: CurrenciesLocalRepository,
     private val remoteRepository: CurrenciesRemoteRepository
 ) : CurrenciesRepository {
 
-    override suspend fun getCurrencies(): List<Currency> {
+    override suspend fun getCurrencies(): List<GeneralCoinInfo> {
         val currencies = remoteRepository.getCurrencies()
         if (currencies != null) {
             localRepository.saveCurrencies(currencies)
@@ -15,7 +15,7 @@ class DefaultCurrenciesRepository(
         return currencies!!
     }
 
-    override suspend fun getCurrency(code: String): Currency {
+    override suspend fun getCurrency(code: String): GeneralCoinInfo {
         TODO("Not yet implemented")
     }
 

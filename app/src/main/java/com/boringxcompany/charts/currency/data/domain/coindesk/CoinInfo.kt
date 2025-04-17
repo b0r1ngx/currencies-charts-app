@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class CoinInfo(
     @SerialName("Name")
-    val name: String,
+    val name: String?,
     @SerialName("FullName")
-    val fullName: String,
+    val fullName: String?,
     @SerialName("ImageUrl")
-    val imageURL: String,
+    val imageURL: String?,
 )
