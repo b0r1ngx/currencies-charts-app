@@ -1,5 +1,6 @@
 package com.boringxcompany.charts.currency.ui.screen
 
+//import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import coil3.compose.AsyncImage
 import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
-//import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
 import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
 
 @Composable
@@ -35,9 +36,12 @@ private fun TopBar(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        Text("Image")
         Text(text = "Name")
         Text(text = "Price")
-        Text(text = "Chart")
+        Text(text = "24h%")
+        Text(text = "Volume(24h)")
+        Text(text = "marketCap")
     }
 }
 
@@ -48,9 +52,15 @@ private fun CurrencyCard(generalCoinInfo: GeneralCoinInfo, modifier: Modifier = 
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-//        Text(text = generalCoinInfo.image)
-        Text(text = generalCoinInfo.fullName.toString())
-        Text(text = generalCoinInfo.name.toString())
+        AsyncImage(
+            model = generalCoinInfo.image,
+            contentDescription = null,
+        )
+        println(generalCoinInfo.image.toString())
+        Column {
+            Text(text = generalCoinInfo.fullName.toString())
+            Text(text = generalCoinInfo.name.toString())
+        }
         Text(text = generalCoinInfo.price.toString())
         Text(text = generalCoinInfo.dailyPriceChangePercent.toString())
         Text(text = generalCoinInfo.dailyVolume.toString())

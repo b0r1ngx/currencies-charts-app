@@ -50,9 +50,11 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.kotlinx.serialization.json)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")  // JSON-сериализация
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.5")           // Для Ktor
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")          // JSON-конвертер
+    implementation(libs.kotlinx.serialization.json.v160)
+    implementation(libs.ktor.client.content.negotiation.v235)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
