@@ -1,4 +1,4 @@
-package com.boringxcompany.charts.currency.repository.currency
+package com.boringxcompany.charts.currency.client
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -10,9 +10,9 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class MyHttpClient {
-
-    fun getClient(): HttpClient {
+// todo: test Ktor JVM OkHttp engine: https://ktor.io/docs/client-engines.html#okhttp
+class KtorClient : Client<HttpClient> {
+    override fun getClient(): HttpClient {
         return HttpClient(Android) {
             install(Logging) {
                 logger = Logger.DEFAULT
