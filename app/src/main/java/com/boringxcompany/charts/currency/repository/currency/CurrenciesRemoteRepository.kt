@@ -1,14 +1,18 @@
 package com.boringxcompany.charts.currency.repository.currency
 
-import com.boringxcompany.charts.currency.data.domain.Currency
+import com.boringxcompany.charts.currency.api.CurrencyApi
+import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
+import com.boringxcompany.charts.currency.data.domain.Price
 
-class CurrenciesRemoteRepository : CurrenciesRepository {
-    override suspend fun getCurrencies(): List<Currency>? {
-        TODO("Not yet implemented")
+class CurrenciesRemoteRepository(
+    private val api: CurrencyApi = determineBestCurrencyApiForUser(),
+) : CurrenciesRepository {
+
+    override suspend fun getCurrencies(): List<GeneralCoinInfo> {
+        return api.getCurrencies()
     }
 
-    override suspend fun getCurrency(code: String): Currency {
-        TODO("Not yet implemented")
+    override suspend fun getCurrency(code: String): List<Price> {
+        return api.getCurrency(code)
     }
-
 }
