@@ -8,6 +8,3 @@ data class CoinDeskResponse(
     @SerialName("Data")
     val data: List<Data>?,
 )
-
-
-
