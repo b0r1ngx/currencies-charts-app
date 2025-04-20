@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import com.boringxcompany.charts.currency.data.domain.Price
-import com.boringxcompany.charts.currency.data.domain.mockPriceData
 import com.boringxcompany.charts.currency.ui.theme.Coral
 import com.boringxcompany.charts.currency.ui.theme.Green
 import com.boringxcompany.charts.currency.ui.theme.Pink
@@ -36,8 +35,8 @@ sealed class DataPoint {
 }
 
 @Composable
-fun CurrencyChart(data: List<Price> = mockPriceData) {
-    Box(Modifier.size(width = 200.dp, height = 100.dp)) {
+fun CurrencyChart(data: List<Price>, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.size(width = 200.dp, height = 100.dp)) {
         Chart(data = data, modifier = Modifier.padding(16.dp))
     }
 }
