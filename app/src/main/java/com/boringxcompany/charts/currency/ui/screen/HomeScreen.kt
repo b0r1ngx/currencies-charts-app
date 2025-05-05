@@ -29,8 +29,7 @@ private enum class ColumnWeight(val weight: Float) {
     Volume(1.5f), MarketCap(1.5f), History(3f)
 }
 
-// TODO: how works now: executes 100 GET requests for each currency
-//  rework: execute GET request only on currency that we see on the screen, don't block UI! (emit values when its ready)
+// TODO: Allow user to choose type of chart
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
     val currenciesLazyListState = rememberLazyListState()

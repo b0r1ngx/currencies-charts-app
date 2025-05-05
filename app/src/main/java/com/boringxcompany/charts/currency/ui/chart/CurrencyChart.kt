@@ -69,6 +69,7 @@ private fun Chart(
     )
 }
 
+// TODO: refactor this code to be compile
 //private fun generateSmoothPath(data: List<Price>, size: Size): Pair<Path, Path> {
 //    val path = Path()
 //    val variancePath = Path()
