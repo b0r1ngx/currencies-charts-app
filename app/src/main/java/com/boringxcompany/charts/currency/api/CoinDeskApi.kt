@@ -6,19 +6,22 @@ import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
 import com.boringxcompany.charts.currency.data.domain.coindesk.CoinDeskResponse
 import com.boringxcompany.charts.currency.client.KtorClient
 import com.boringxcompany.charts.currency.data.domain.Price
+import com.boringxcompany.charts.currency.data.domain.coindesk.DailyWrapper
+import com.boringxcompany.charts.currency.data.domain.coindesk.Data
+import com.boringxcompany.charts.currency.data.domain.toLocalTime
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.client.statement.HttpResponse
-import java.time.LocalTime
+import io.ktor.client.statement.bodyAsText
 
 private const val IMAGE_BASE = "https://www.cryptocompare.com/"
-private const val totalvolfullEndpoint = "data/top/totalvolfull"
-private const val currencyEndpoint = "data/price"
+private const val totalvolfullEndpoint = "/data/top/totalvolfull"
+private const val currencyEndpoint = "/data/v2/histoday"
 
 class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
-    override val base = "https://min-api.cryptocompare.com/"
+    override val base = "https://min-api.cryptocompare.com"
     override val accessKey = "ae093614fb942ec40ec4d705e121edf55ad587feaa7b69757a4cf79ffcfaf418"
     override val tag = "COIN_DESK_TAG"
 
@@ -36,7 +39,7 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                         )
                     )
 
-                    return response.body<CoinDeskResponse>().mapToGeneralCoinInfo()
+                    return response.body<CoinDeskResponse<List<Data>>>().mapToGeneralCoinInfo()
                 }
             }
         } catch (e: Exception) {
@@ -55,7 +58,7 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
         }
     }
 
-    private fun CoinDeskResponse.mapToGeneralCoinInfo(): List<GeneralCoinInfo> {
+    private suspend fun CoinDeskResponse<List<Data>>.mapToGeneralCoinInfo(): List<GeneralCoinInfo> {
         val coinList = ArrayList<GeneralCoinInfo>()
 
         data?.forEachIndexed { index, currency ->
@@ -68,7 +71,8 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                     price = currency.display?.usd?.price,
                     dailyPriceChangePercent = currency.display?.usd?.dailyPriceChangePercent,
                     dailyTradeVolume = currency.display?.usd?.dailyTradeVolume,
-                    marketCap = currency.display?.usd?.marketCap
+                    marketCap = currency.display?.usd?.marketCap,
+                    history = getCurrency(currency.coinInfo?.name ?: "")
                 )
             )
         }
@@ -84,13 +88,16 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                     val response = httpClient.get(
                         url = base + currencyEndpoint,
                         parameters = arrayOf(
-                            "limit" to "$AMOUNT_OF_CURRENCIES",
+                            "fsym" to code,
                             "tsym" to QUOTE_CURRENCY,
+                            // limit = 10 days, default 30
                             "api_key" to accessKey,
                         )
                     )
 
-                    return response.body<CoinDeskResponse>().mapToHistory()
+                    println("code ${response.bodyAsText()}")
+
+                    return response.body<CoinDeskResponse<DailyWrapper>>().mapToHistory()
                 }
             }
         } catch (e: Exception) {
@@ -100,14 +107,17 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
         return listOf()
     }
 
-    private fun CoinDeskResponse.mapToHistory(): List<Price> {
+    private fun CoinDeskResponse<DailyWrapper>.mapToHistory(): List<Price> {
         val coinList = ArrayList<Price>()
 
-        data?.forEach { price ->
+        data?.data?.forEach { day ->
             coinList.add(
                 Price(
-                    date = LocalTime.of(0, 34),
-                    price = 55f
+                    date = day.time.toLocalTime(),
+                    high = day.high,
+                    low = day.low,
+                    open = day.open,
+                    close = day.close
                 )
             )
         }
