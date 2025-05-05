@@ -20,7 +20,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
-import com.boringxcompany.charts.currency.data.domain.mockPriceData
 import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
 import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
 
@@ -29,6 +28,8 @@ private enum class ColumnWeight(val weight: Float) {
     Volume(1.5f), MarketCap(1.5f), History(3f)
 }
 
+// TODO: how works now: executes 100 GET requests for each currency
+//  rework: execute GET request only on currency that we see on the screen, don't block UI! (emit values when its ready)
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
     val currencies by viewModel.currencies.collectAsState(listOf())
@@ -52,7 +53,7 @@ private fun TitleRow(modifier: Modifier = Modifier) {
         Cell("24h%", ColumnWeight.DailyChange)
         Cell("Volume(24h)", ColumnWeight.Volume)
         Cell("Market Cap", ColumnWeight.MarketCap)
-        Cell("History", ColumnWeight.History)
+        Cell("History (30 days)", ColumnWeight.History)
     }
 }
 
@@ -66,7 +67,7 @@ private fun CurrencyRow(currency: GeneralCoinInfo, modifier: Modifier = Modifier
         Cell(currency.dailyTradeVolume.toString(), ColumnWeight.Volume)
         Cell(currency.marketCap.toString(), ColumnWeight.MarketCap)
         CurrencyChart(
-            data = mockPriceData,
+            data = currency.history,
             modifier = Modifier.weight(ColumnWeight.History.weight)
         )
     }
