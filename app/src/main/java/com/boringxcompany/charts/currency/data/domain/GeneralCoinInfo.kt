@@ -9,4 +9,5 @@ data class GeneralCoinInfo(
     val dailyPriceChangePercent: String?,
     val dailyTradeVolume: String?,
     val marketCap: String?,
+    val history: List<Price>,
 )
