@@ -43,7 +43,7 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                 }
             }
         } catch (e: Exception) {
-            Log.e(tag, "CurrenciesRemoteRepository.getCurrencies(). Exception: ${e.message}")
+            Log.e(tag, "CoinDeskApi.getCurrencies(). Exception: ${e.message}")
         }
 
         return listOf()
@@ -58,7 +58,7 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
         }
     }
 
-    private suspend fun CoinDeskResponse<List<Data>>.mapToGeneralCoinInfo(): List<GeneralCoinInfo> {
+    private fun CoinDeskResponse<List<Data>>.mapToGeneralCoinInfo(): List<GeneralCoinInfo> {
         val coinList = ArrayList<GeneralCoinInfo>()
 
         data?.forEachIndexed { index, currency ->
@@ -67,12 +67,11 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                     index = index + 1,
                     image = IMAGE_BASE + currency.coinInfo?.imageURL,
                     fullName = currency.coinInfo?.fullName,
-                    name = currency.coinInfo?.name,
+                    code = currency.coinInfo?.name,
                     price = currency.display?.usd?.price,
                     dailyPriceChangePercent = currency.display?.usd?.dailyPriceChangePercent,
                     dailyTradeVolume = currency.display?.usd?.dailyTradeVolume,
                     marketCap = currency.display?.usd?.marketCap,
-                    history = getCurrency(currency.coinInfo?.name ?: "")
                 )
             )
         }
@@ -101,7 +100,7 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                 }
             }
         } catch (e: Exception) {
-            Log.e(tag, "CurrenciesRemoteRepository.getCurrencies(). Exception: ${e.message}")
+            Log.e(tag, "CoinDeskApi.getCurrency(). Exception: ${e.message}")
         }
 
         return listOf()
