@@ -12,7 +12,7 @@ class DefaultCurrenciesRepository(
         val currencies = remoteRepository.getCurrencies()
 
         if (currencies.isEmpty()) {
-            return localRepository.getCurrencies()
+//            return localRepository.getCurrencies()
         } else {
             localRepository.saveCurrencies(currencies)
         }
@@ -21,7 +21,15 @@ class DefaultCurrenciesRepository(
     }
 
     override suspend fun getCurrency(code: String): List<Price> {
-        TODO("Not yet implemented")
+        val history = remoteRepository.getCurrency(code)
+
+        if (history.isEmpty()) {
+//            return localRepository.getCurrency(code)
+        } else {
+//            localRepository.saveCurrency()
+        }
+
+        return history
     }
 
 }
