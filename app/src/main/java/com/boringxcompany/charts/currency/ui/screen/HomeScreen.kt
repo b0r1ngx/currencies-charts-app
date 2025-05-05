@@ -8,11 +8,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -32,12 +33,22 @@ private enum class ColumnWeight(val weight: Float) {
 //  rework: execute GET request only on currency that we see on the screen, don't block UI! (emit values when its ready)
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
-    val currencies by viewModel.currencies.collectAsState(listOf())
+    val currenciesLazyListState = rememberLazyListState()
+    LaunchedEffect(Unit) {
+        snapshotFlow { currenciesLazyListState.layoutInfo.visibleItemsInfo }
+            .collect { visibleCurrencies ->
+                visibleCurrencies.forEach { item ->
+                    viewModel.currencies.getOrNull(item.index)?.code?.let { code ->
+                        viewModel.collectCurrencyHistory(code)
+                    }
+                }
+            }
+    }
 
     Column(modifier = modifier) {
         TitleRow()
-        LazyColumn {
-            items(currencies) { currency ->
+        LazyColumn(state = currenciesLazyListState) {
+            items(viewModel.currencies) { currency ->
                 CurrencyRow(currency)
             }
         }
@@ -113,7 +124,7 @@ private fun RowScope.NameCell(
         )
         Column {
             Text(text = currency.fullName.toString(), style = MaterialTheme.typography.bodySmall)
-            Text(text = currency.name.toString(), style = MaterialTheme.typography.labelSmall)
+            Text(text = currency.code.toString(), style = MaterialTheme.typography.labelSmall)
         }
     }
 }
