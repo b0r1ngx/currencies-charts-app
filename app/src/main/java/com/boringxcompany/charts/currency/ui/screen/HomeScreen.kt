@@ -54,6 +54,8 @@ fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
     }
 }
 
+// todo: on default phone screen, remove volume(24h)
+// todo: allow user to choose what columns he wants to see
 @Composable
 private fun TitleRow(modifier: Modifier = Modifier) {
     CurrencyRow(modifier = modifier) {
