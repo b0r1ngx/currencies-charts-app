@@ -20,5 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Currencies Charts"
-include(":app")
 include(":compose")
+include(":client")
+include(":domain")
