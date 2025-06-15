@@ -1,6 +1,6 @@
-package com.boringxcompany.charts.currency.repository.currency
+package repository.currency
 
-import com.boringxcompany.charts.currency.api.CurrencyApi
+import api.CurrencyApi
 import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
 import com.boringxcompany.charts.currency.data.domain.Price
 

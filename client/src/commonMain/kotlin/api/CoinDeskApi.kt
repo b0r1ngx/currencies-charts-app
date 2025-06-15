@@ -1,11 +1,10 @@
-package com.boringxcompany.charts.currency.api
+package api
 
-import android.util.Log
-import com.boringxcompany.charts.currency.client.Client
+import client.Client
+import client.KtorClient
 import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
-import com.boringxcompany.charts.currency.data.domain.coindesk.CoinDeskResponse
-import com.boringxcompany.charts.currency.client.KtorClient
 import com.boringxcompany.charts.currency.data.domain.Price
+import com.boringxcompany.charts.currency.data.domain.coindesk.CoinDeskResponse
 import com.boringxcompany.charts.currency.data.domain.coindesk.DailyWrapper
 import com.boringxcompany.charts.currency.data.domain.coindesk.Data
 import com.boringxcompany.charts.currency.data.domain.toLocalTime
@@ -43,7 +42,8 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                 }
             }
         } catch (e: Exception) {
-            Log.e(tag, "CoinDeskApi.getCurrencies(). Exception: ${e.message}")
+            println("$tag. CoinDeskApi.getCurrencies(). Exception: ${e.message}")
+//            Log.e(tag, "CoinDeskApi.getCurrencies(). Exception: ${e.message}")
         }
 
         return listOf()
@@ -100,7 +100,8 @@ class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
                 }
             }
         } catch (e: Exception) {
-            Log.e(tag, "CoinDeskApi.getCurrency(). Exception: ${e.message}")
+            println("$tag. CoinDeskApi.getCurrency(). Exception: ${e.message}")
+//            Log.e(tag, "CoinDeskApi.getCurrency(). Exception: ${e.message}")
         }
 
         return listOf()

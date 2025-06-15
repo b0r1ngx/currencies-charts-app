@@ -1,7 +1,5 @@
-package com.boringxcompany.charts.currency.client
-
+package client
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
@@ -13,7 +11,7 @@ import kotlinx.serialization.json.Json
 // todo: test Ktor JVM OkHttp engine: https://ktor.io/docs/client-engines.html#okhttp
 class KtorClient : Client<HttpClient> {
     override fun getClient(): HttpClient {
-        return HttpClient(Android) {
+        return HttpClient {
             install(Logging) {
                 logger = Logger.DEFAULT
                 level = LogLevel.ALL
