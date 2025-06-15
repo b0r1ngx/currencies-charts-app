@@ -1,4 +1,4 @@
-package com.boringxcompany.charts.currency.ui.screen
+package ui.screen
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

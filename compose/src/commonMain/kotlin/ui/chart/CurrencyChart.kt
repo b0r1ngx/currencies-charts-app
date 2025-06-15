@@ -1,6 +1,5 @@
-package com.boringxcompany.charts.currency.ui.chart
+package ui.chart
 
-import android.graphics.PointF
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,17 +11,13 @@ import androidx.compose.ui.draw.DrawResult
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import com.boringxcompany.charts.currency.data.domain.Price
-import com.boringxcompany.charts.currency.ui.theme.Coral
-import com.boringxcompany.charts.currency.ui.theme.Green
-import com.boringxcompany.charts.currency.ui.theme.Pink
-import com.boringxcompany.charts.currency.ui.theme.Purple
+import ui.theme.Coral
+import ui.theme.Green
+import ui.theme.Pink
+import ui.theme.Purple
 
 const val numberEntries = 48 // 48 blocks of 30 minutes
 const val chartTimeFrameInSeconds = 30 * 60 // 30 minutes

@@ -1,4 +1,4 @@
-package com.boringxcompany.charts.currency.ui.screen
+package ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,8 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
-import com.boringxcompany.charts.currency.ui.chart.CurrencyChart
-import com.boringxcompany.charts.currency.viewmodel.HomeViewModel
+import ui.chart.CurrencyChart
+import ui.viewmodel.HomeViewModel
 
 private enum class ColumnWeight(val weight: Float) {
     Index(0.5f), Name(2f), Price(1f), DailyChange(1f),
@@ -31,7 +30,10 @@ private enum class ColumnWeight(val weight: Float) {
 
 // TODO: Allow user to choose type of chart
 @Composable
-fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    modifier: Modifier = Modifier,
+) {
     val currenciesLazyListState = rememberLazyListState()
     LaunchedEffect(Unit) {
         snapshotFlow { currenciesLazyListState.layoutInfo.visibleItemsInfo }
@@ -47,7 +49,12 @@ fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         TitleRow()
         LazyColumn(state = currenciesLazyListState) {
-            items(viewModel.currencies) { currency ->
+            // todo: fix !!
+            items(
+                count = viewModel.currencies.size,
+                key = { index -> viewModel.currencies[index].code!! }
+            ) { index ->
+                val currency = viewModel.currencies[index]
                 CurrencyRow(currency)
             }
         }
@@ -55,7 +62,7 @@ fun HomeScreen(viewModel: HomeViewModel, modifier: Modifier = Modifier) {
 }
 
 // todo: on default phone screen, remove volume(24h)
-// todo: allow user to choose what columns he wants to see
+// todo: allow user to choose what columns he wants to see (test variants that user possible to choose)
 @Composable
 private fun TitleRow(modifier: Modifier = Modifier) {
     CurrencyRow(modifier = modifier) {

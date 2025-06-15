@@ -1,4 +1,4 @@
-package com.boringxcompany.charts.currency.viewmodel
+package ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 

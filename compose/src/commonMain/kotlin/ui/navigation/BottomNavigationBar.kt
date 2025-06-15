@@ -1,4 +1,4 @@
-package com.boringxcompany.charts.currency.ui.screen
+package ui.navigation
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -8,27 +8,30 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.boringxcompany.charts.currency.data.screen.Screens
+import data.screen.Tabs
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
+    // todo: check is this increase performance?
+    val tabs = remember { Tabs.entries.toTypedArray() }
     NavigationBar {
-        Screens.entries.forEach { screen ->
-            val isScreenSelected = currentDestination?.route == screen.name
+        tabs.forEach { tab ->
+            val isTabSelected = currentDestination?.route == tab.name
 
             NavigationBarItem(
-                selected = isScreenSelected,
+                selected = isTabSelected,
                 onClick = {
-                    // Only navigate if we're not already on that screen
+                    // Only navigate if we're not already on that tab
                     // Prevent building up a large back stack
-                    if (currentDestination?.route != screen.name) {
-                        navController.navigate(screen.name) {
+                    if (currentDestination?.route != tab.name) {
+                        navController.navigate(tab.name) {
                             launchSingleTop = true
                             restoreState = true
                             popUpTo(navController.graph.startDestinationId) {
@@ -37,15 +40,8 @@ fun BottomNavigationBar(navController: NavController) {
                         }
                     }
                 },
-                icon = {
-                    Icon(imageVector = screen.icon, contentDescription = screen.title)
-                },
-                label = {
-                    Text(
-                        text = screen.title,
-                        color = notSelectedTextColor(isScreenSelected)
-                    )
-                },
+                icon = { Icon(imageVector = tab.icon, contentDescription = tab.title) },
+                label = { Text(tab.title, color = notSelectedTextColor(isTabSelected)) },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.surface,
                     indicatorColor = MaterialTheme.colorScheme.primary
@@ -56,6 +52,6 @@ fun BottomNavigationBar(navController: NavController) {
 }
 
 @Composable
-fun notSelectedTextColor(isSelected: Boolean) =
+private fun notSelectedTextColor(isSelected: Boolean) =
     if (isSelected) MaterialTheme.colorScheme.onSurface
     else Color.Gray // todo: use some color from MaterialTheme

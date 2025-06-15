@@ -1,20 +1,19 @@
-package com.boringxcompany.charts.currency.viewmodel
+package ui.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.boringxcompany.charts.currency.data.domain.GeneralCoinInfo
-import com.boringxcompany.charts.currency.repository.currency.CurrenciesRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import repository.currency.CurrenciesRepository
 
 private const val tag = "HomeViewModel_TAG"
 
-
 class HomeViewModel(
     private val currenciesRepository: CurrenciesRepository,
+//    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _currencies = mutableStateListOf<GeneralCoinInfo>()
     val currencies: List<GeneralCoinInfo>
@@ -25,6 +24,28 @@ class HomeViewModel(
     private val fetchedHistory = mutableSetOf<String>()
     private val fetchingHistory = mutableSetOf<String>()
     private val historyMutex = Mutex()
+
+    // TODO: if want self-implemented analytics of: frequency of specific screen appearing to user
+    //       1. create MainViewModel: Viewmodel(),
+    //       2. in MainViewModel:
+    //          create unique screen_appear_key (by class name)
+    //          create screenAppearanceCounter & onScreenAppear()
+    //          (also we can hold structure with all keys in common place, to check that they all unique)
+    //       3. then use in app SpecificScreenViewModel: MainViewModel()
+    private val SCREEN_APPEAR_KEY = "HOME_SCREEN_APPEAR"
+
+//    @OptIn(SavedStateHandleSaveableApi::class)
+//    private val screenAppearanceCounter = savedStateHandle.saveable(SCREEN_APPEAR_KEY) {
+//        mutableIntStateOf(0)
+//    }
+//
+//    fun onScreenAppear() {
+//        // use this
+//        savedStateHandle[SCREEN_APPEAR_KEY] = savedStateHandle.get<Int>(SCREEN_APPEAR_KEY)?.plus(1)
+//
+//        // or this is also allowed and will be auto-increased at savedStateHandle?
+//        screenAppearanceCounter.intValue += 1
+//    }
 
     init {
         collectCurrencies()
@@ -37,7 +58,8 @@ class HomeViewModel(
                 val currencies = currenciesRepository.getCurrencies()
                 _currencies.addAll(currencies)
             } catch (e: Exception) {
-                Log.e(tag, "collectCurrencies(). Exception: ${e.message}")
+                print("$tag. collectCurrencies(). Exception: ${e.message}")
+//                Log.e(tag, "collectCurrencies(). Exception: ${e.message}")
             }
         }
     }
@@ -61,7 +83,8 @@ class HomeViewModel(
 
                 historyMutex.withLock { fetchedHistory.add(code) }
             } catch (e: Exception) {
-                Log.e(tag, "collectCurrencyHistory(code=$code). Exception: ${e.message}")
+                print("$tag. collectCurrencyHistory(code=$code). Exception: ${e.message}")
+//                Log.e(tag, "collectCurrencyHistory(code=$code). Exception: ${e.message}")
             } finally {
                 historyMutex.withLock { fetchingHistory.remove(code) }
             }
