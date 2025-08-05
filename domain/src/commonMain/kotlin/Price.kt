@@ -1,9 +1,10 @@
 package com.boringxcompany.charts.currency.data.domain
 
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 data class Price(
     val date: LocalTime,
@@ -14,6 +15,7 @@ data class Price(
 )
 
 // unixtime to LocalTime
+@OptIn(ExperimentalTime::class)
 fun Long.toLocalTime(): LocalTime {
     return Instant.fromEpochSeconds(this)
         .toLocalDateTime(TimeZone.currentSystemDefault())
