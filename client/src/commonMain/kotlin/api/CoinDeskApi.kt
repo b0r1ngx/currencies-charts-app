@@ -18,6 +18,9 @@ import io.ktor.client.statement.bodyAsText
 private const val IMAGE_BASE = "https://www.cryptocompare.com/"
 private const val totalvolfullEndpoint = "/data/top/totalvolfull"
 private const val currencyEndpoint = "/data/v2/histoday"
+private const val AMOUNT_OF_CURRENCIES = 100
+// TODO: Allow to set this in user preferences (right on home screen, to be more visible / easy to change, or move to ProfileScreen?)
+private const val QUOTE_CURRENCY = "USD"
 
 class CoinDeskApi<T>(private val client: Client<T>) : CurrencyApi {
     override val base = "https://min-api.cryptocompare.com"
